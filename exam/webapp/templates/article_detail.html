@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">{{ post.title }}</h1>
+        <p class="lead">{{ post.text }}</p>
+          <button type="button" class="btn btn-secondary"><a href="{% url 'webapp:user_office' user.pk %}">{{ post.author }}</a></button>
+          <button type="button" class="btn btn-secondary"><a href="{% url 'webapp:article_update' post.pk %}">редактировать</a></button>
+          <button class="btn btn-outline-light"><a href="{% url 'webapp:post_delete' post.pk %}" data-toggle="modal"
+                                         data-target="#exampleModal{{ post.pk }}"><span
+                    class="font-weight-bold">Удалить</span></a></button>
+            <div class="modal fade" id="exampleModal{{ post.pk }}" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Вы уверены?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Вы уверены что хотите удалить пост?
+                        </div>
+                        <div class="modal-footer">
+                            <a href="{% url 'webapp:article_delete' post.pk %}" class="btn btn-secondary">Да</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </div>
+{% endblock %}

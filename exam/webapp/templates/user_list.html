@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Пользователи{% endblock %}
+{% block content %}
+    <div class="list-group">
+      <a href="#" class="list-group-item list-group-item-action active">
+        Пользователи
+      </a>
+        {% for i in userinfo_list %}
+            <div class="jumbotron">
+              <h1 class="display-4">{{ user.userinfo }}</h1>
+              <p class="lead">{{ user.birth_date }}</p>
+              <hr class="my-4">
+              <p>{{ user.phone_number }}</p>
+              <a class="btn btn-primary btn-lg" href="{% url 'webapp:user_office' user.pk %}" role="button">{{ user.user }}</a>
+            </div>
+      {% endfor %}
+    </div>
+{% endblock %}

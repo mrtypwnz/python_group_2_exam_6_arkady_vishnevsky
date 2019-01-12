@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <div class="container content">
+        <div class="row" style="margin-left: 20px;">
+            <div class="col5">
+                {% if selected_user.userinfo.avatar %}
+                    <img src="{{ selected_user.avatar.url }}" class="avatar-img img-thumbnail" style="width: 15rem;, height: 15rem;">
+                {% else %}
+                    <img src="{% static 'img/user.jpg' %}" class="avatar-img img-thumbnail">
+                {% endif %}
+                <br>
+                <br>
+                {% if selected_user.id == user.id %}
+                    <a href="{% url 'webapp:user_edit' user.pk %}" class="btn btn-sm btn-info">Редактировать профиль</a>
+                {% endif %}
+            </div>
+            <div class="col">
+                <dl class="row">
+                    <dt class="col-sm-3 text-right">Логин</dt>
+                    <dd class="col-sm-9">{{ selected_user }}</dd>
+
+                    <dt class="col-sm-3 text-right">Дата рождения</dt>
+                    <dd class="col-sm-9">{{ selected_user.userinfo.birth_date|date:"d M Y" }}</dd>
+
+                    <dt class="col-sm-3 text-right">Пол</dt>
+                    <dd class="col-sm-9">{{ selected_user.userinfo.gender }}</dd>
+
+                    <dt class="col-sm-3 text-right">Друзья</dt>
+                        {% for user_friend in selected_user.friends.all %}
+                            <dd class="col-sm-9">{{ user_friend.user }}</dd>
+                    {% endfor %}
+
+                </dl>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
